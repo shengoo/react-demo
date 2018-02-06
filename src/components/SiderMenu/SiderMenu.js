@@ -6,21 +6,21 @@ import {connect} from "react-redux";
 
 const { Sider } = Layout;
 
-const SiderMenu = ({collapsed}) => (
+const SiderMenu = ({collapsed,path, dispatch}) => (
     <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
     >
         <div className="logo"><h1>Hello</h1></div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1">
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={[path]} onClick={(e) => {dispatch({type:'@@router/LOCATION_CHANGE',payload:{pathname:e.key}})}}>
+            <Menu.Item key="/">
                 <Icon type="user"/>
-                <span><Link to="/">Home</Link></span>
+                <span>Home</span>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="/about">
                 <Icon type="video-camera"/>
-                <span><Link to="/about">About</Link></span>
+                <span>About</span>
             </Menu.Item>
             <Menu.Item key="3">
                 <Icon type="upload"/>
@@ -32,6 +32,6 @@ const SiderMenu = ({collapsed}) => (
 )
 
 
-export default connect(state => ({collapsed: state.menuReducer.menuCollapsed}))(SiderMenu);
+export default connect(state => ({collapsed: state.menuReducer.menuCollapsed, path: state.router.location.pathname}))(SiderMenu);
 
 
