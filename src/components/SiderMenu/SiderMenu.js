@@ -17,20 +17,17 @@ class SiderMenu extends React.Component{
                 <div className="logo"><h1>Hello</h1></div>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={[router.location.pathname]}
                       onClick={(e) => {
-                          history.push(e.key);
+                          if(router.location.pathname != e.key)
+                            history.push(e.key);
                       }}
                 >
                     <Menu.Item key="/">
-                        <Icon type="user"/>
-                        <span>Home</span>
+                        <Icon type="table"/>
+                        <span>列表页</span>
                     </Menu.Item>
                     <Menu.Item key="/about">
                         <Icon type="video-camera"/>
                         <span>About</span>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        <Icon type="upload"/>
-                        <span>nav 3</span>
                     </Menu.Item>
                 </Menu>
             </Sider>

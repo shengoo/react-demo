@@ -2,7 +2,7 @@ import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
     menuCollapsed : false,
-}
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {

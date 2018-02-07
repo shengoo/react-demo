@@ -9,8 +9,9 @@ import { Link } from 'react-router-dom';
 
 import BasicLayout from './layouts/BasicLayout';
 import List from './pages/List';
+import About from './pages/About';
 import store from './store';
-
+console.log(store.getState())
 const history = createHistory();
 
 export default () => (
@@ -18,9 +19,11 @@ export default () => (
         { /* ConnectedRouter will use the store from Provider automatically */ }
         <ConnectedRouter history={history}>
             <Switch>
-                <Route exact path="/" component={() => (<List>Home <Link to="/about">About</Link></List>)} />
-                <Route path="/about" component={() => (<BasicLayout>About <Link to="/">Home</Link></BasicLayout>)} />
-                <Route component={()=>(<Redirect to='/' />)} />
+                <BasicLayout>
+                    <Route exact path="/" component={() => (<List />)} />
+                    <Route path="/about" component={() => (<About />)} />
+                    {/*<Route component={()=>(<Redirect to='/' />)} />*/}
+                </BasicLayout>
             </Switch>
         </ConnectedRouter>
     </Provider>

@@ -11,11 +11,13 @@ const middleware = [routerMiddleware(history)];//[ thunk ]
 if (process.env.NODE_ENV !== 'production') {
         // middleware.push(createLogger())
 }
-      
+
 export default createStore(
     reducer,
+    window.__PRELOADED_STATE__,
     compose(
         applyMiddleware(...middleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+
     )
 );

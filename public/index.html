@@ -20,6 +20,30 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <% if (!htmlWebpackPlugin.options.inject) { %>
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <?php \Chaos\Util\StaticFileControl::add('<%= htmlWebpackPlugin.files.css[css] %>'); ?>
+    <% } %>
+    <script>
+        window.__PRELOADED_STATE__ = {
+            user: {
+                isAuthed: !!<?php echo $isAuthed ? 1 : 0; ?>,
+                avatar: '<?php echo $avatar; ?>',
+                nickname: '<?php echo $nickname; ?>',
+            }
+        };
+    </script>
+    <% } else { %>
+    <script>
+        window.__PRELOADED_STATE__ = {
+            user: {
+                isAuthed: true,
+                avatar: 'http://pic05.babytreeimg.com/img/ng/dist/common/css/img/header-pregnancy-logo.afd33501.png',
+                nickname: '清凌渡',
+            }
+        };
+    </script>
+    <% } %>
   </head>
   <body>
     <noscript>

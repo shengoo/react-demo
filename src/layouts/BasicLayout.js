@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './BasicLayout.css';
-import { Layout, Icon, message, Menu } from 'antd';
+import { Layout, Icon, message, Menu, Avatar } from 'antd';
 import actions from '../actions/menuActions';
 import ActionTypes from '../actions/ActionTypes';
 import SiderMenu from '../components/SiderMenu/SiderMenu';
+import AppHeader from '../components/Header/Header';
 const { Header, Sider, Content } = Layout;
 
 class BasicLayout extends React.Component {
@@ -13,13 +14,7 @@ class BasicLayout extends React.Component {
             <Layout>
                 <SiderMenu />
                 <Layout>
-                    <Header style={{ background: '#fff', }}>
-                        <Icon
-                            className="trigger"
-                            type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={() => this.props.dispatch(actions.collapse())}
-                        />
-                    </Header>
+                    <AppHeader />
                     <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                         {this.props.children}
                     </Content>

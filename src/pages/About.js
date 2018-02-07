@@ -2,12 +2,12 @@ import React from 'react';
 
 import Layout from '../layouts/BasicLayout';
 
-class List extends React.Component {
+class About extends React.Component {
     render(){
         return (
-            <div>Home</div>
+            <div>About</div>
         )
     }
 }
 
-export default List;
+export default About;
