@@ -17,7 +17,7 @@ class SiderMenu extends React.Component{
                 <div className="logo"><h1>Hello</h1></div>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={[router.location.pathname]}
                       onClick={(e) => {
-                          if(router.location.pathname != e.key)
+                          if(router.location.pathname != e.key && e.key && e.key !== 'antdlink')
                             history.push(e.key);
                       }}
                 >
@@ -25,9 +25,8 @@ class SiderMenu extends React.Component{
                         <Icon type="table"/>
                         <span>列表页</span>
                     </Menu.Item>
-                    <Menu.Item key="/about">
-                        <Icon type="video-camera"/>
-                        <span>About</span>
+                    <Menu.Item key='antdlink'>
+                        <a href="https://ant.design/index-cn" target="_blank"><Icon type="book"/>Ant Design</a>
                     </Menu.Item>
                 </Menu>
             </Sider>
