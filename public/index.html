@@ -60,5 +60,10 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <% if (!htmlWebpackPlugin.options.inject) { %>
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+    <?php \Chaos\Util\StaticFileControl::add('<%= htmlWebpackPlugin.files.chunks[chunk].entry %>'); ?>
+    <% } %>
+    <% } %>
   </body>
 </html>
