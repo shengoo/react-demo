@@ -13,26 +13,17 @@ const { Column, ColumnGroup } = Table;
 
 const columns = [{
     title: 'id',
-    dataIndex: 'id',
-    render: function (text, record) {
-        return record.show.id;
-    },
+    dataIndex: 'show.id',
 }, {
     title: 'name',
-    dataIndex: 'name',
-    render: function (text, record) {
-        return record.show.name;
-    },
+    dataIndex: 'show.name',
 }, {
     title: 'score',
     dataIndex: 'score',
     key: 'score',
 }, {
     title: 'status',
-    dataIndex: 'status',
-    render: function (text, record) {
-        return record.show.status;
-    },
+    dataIndex: 'show.status',
 }, {
     title: 'image',
     dataIndex: 'image',
@@ -57,17 +48,18 @@ const columns = [{
 class List extends React.Component {
 
     componentDidMount(){
-        this.props.dispatch(actions.fetchDataRequest());
-        fetch('http://api.tvmaze.com/search/shows?q=batman')
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log(responseJson);
-                this.props.dispatch(actions.fetchDataSuccess(responseJson));
-            })
-            .catch(e => this.props.dispatch(actions.fetchDataFailed()));
+        if(!this.props.data.items.length) {
+            this.props.dispatch(actions.fetchDataRequest());
+            fetch('http://api.tvmaze.com/search/shows?q=batman')
+                .then(response => response.json())
+                .then(responseJson => {
+                    this.props.dispatch(actions.fetchDataSuccess(responseJson));
+                })
+                .catch(e => this.props.dispatch(actions.fetchDataFailed()));
+        }
     }
 
-    render() {console.log(this.props)
+    render() {
         return (
             <div>
                 <p>

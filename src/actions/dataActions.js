@@ -17,6 +17,25 @@ const actions = {
             payload,
         };
     },
+
+    fetchDetailRequest(payload) {
+        return {
+            type: ActionTypes.FETCH_DETAIL_REQUEST,
+            payload,
+        }
+    },
+    fetchDetailFailed(payload){
+        return {
+            type: ActionTypes.FETCH_DETAIL_FAILURE,
+            payload,
+        };
+    },
+    fetchDetailSuccess(payload) {
+        return {
+            type: ActionTypes.FETCH_DETAIL_SUCCESS,
+            payload,
+        };
+    },
 };
 
 export default actions;

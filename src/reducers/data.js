@@ -3,7 +3,8 @@ import ActionTypes from '../actions/ActionTypes';
 const initialState = {
     isFetching : false,
     isFailed: false,
-    items: []
+    items: [],
+    details: []
 };
 
 export default (state = initialState, action) => {
@@ -27,6 +28,23 @@ export default (state = initialState, action) => {
                 isFailed: false,
                 items: state.items.concat(action.payload),
             };
+
+        case ActionTypes.FETCH_DETAIL_REQUEST:
+            const details = state.details.slice(0);
+            return {
+                ...state,
+
+            };
+        case ActionTypes.FETCH_DETAIL_FAILURE:
+            return {
+                ...state,
+            };
+        case ActionTypes.FETCH_DETAIL_SUCCESS:
+            return {
+                ...state,
+                details: state.details.concat(action.payload),
+            };
+
         default:
             return state;
     }
