@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import createHistory from 'history/createHashHistory';
-import { Route } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
@@ -17,10 +17,11 @@ export default () => (
     <Provider store={store}>
         { /* ConnectedRouter will use the store from Provider automatically */ }
         <ConnectedRouter history={history}>
-            <div>
+            <Switch>
                 <Route exact path="/" component={() => (<List>Home <Link to="/about">About</Link></List>)} />
                 <Route path="/about" component={() => (<BasicLayout>About <Link to="/">Home</Link></BasicLayout>)} />
-            </div>
+                <Route component={()=>(<Redirect to='/' />)} />
+            </Switch>
         </ConnectedRouter>
     </Provider>
 )

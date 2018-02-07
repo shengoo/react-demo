@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 //import thunk from 'redux-thunk'
 //import { createLogger } from 'redux-logger'
 import { routerReducer, routerMiddleware } from 'react-router-redux';
@@ -14,6 +14,8 @@ if (process.env.NODE_ENV !== 'production') {
       
 export default createStore(
     reducer,
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    compose(
+        applyMiddleware(...middleware),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
