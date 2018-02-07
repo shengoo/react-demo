@@ -10,8 +10,11 @@ import { Link } from 'react-router-dom';
 import BasicLayout from './layouts/BasicLayout';
 import List from './pages/List';
 import About from './pages/About';
+import Create from './pages/Create';
+import Detail from './pages/Detail';
+import Update from './pages/Update';
 import store from './store';
-console.log(store.getState())
+
 const history = createHistory();
 
 export default () => (
@@ -21,8 +24,10 @@ export default () => (
             <Switch>
                 <BasicLayout>
                     <Route exact path="/" component={() => (<List />)} />
+                    <Route path="/create" component={() => (<Create />)} />
+                    <Route path="/detail/:id" component={() => (<Detail />)} />
+                    <Route path="/update/:id" component={() => (<Update />)} />
                     <Route path="/about" component={() => (<About />)} />
-                    {/*<Route component={()=>(<Redirect to='/' />)} />*/}
                 </BasicLayout>
             </Switch>
         </ConnectedRouter>
