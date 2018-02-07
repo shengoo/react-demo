@@ -1,6 +1,6 @@
 import ActionTypes from './ActionTypes';
 
-const menuActions = {
+const actions = {
     collapse() {
         return {
             type: ActionTypes.COLLAPS_MENU,
@@ -8,4 +8,4 @@ const menuActions = {
     }
 }
 
-export default menuActions;
+export default actions;

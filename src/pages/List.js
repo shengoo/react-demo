@@ -1,19 +1,91 @@
 import React from 'react';
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import {Button, Table, Icon, Divider} from 'antd';
+import {connect} from "react-redux";
+import {Link, withRouter} from 'react-router-dom';
 
 import Layout from '../layouts/BasicLayout';
 
+import actions from '../actions/dataActions';
+
+const { Column, ColumnGroup } = Table;
+
+
+
+const columns = [{
+    title: 'id',
+    dataIndex: 'id',
+    render: function (text, record) {
+        return record.show.id;
+    },
+}, {
+    title: 'name',
+    dataIndex: 'name',
+    render: function (text, record) {
+        return record.show.name;
+    },
+}, {
+    title: 'score',
+    dataIndex: 'score',
+    key: 'score',
+}, {
+    title: 'status',
+    dataIndex: 'status',
+    render: function (text, record) {
+        return record.show.status;
+    },
+}, {
+    title: 'image',
+    dataIndex: 'image',
+    render: (text, record) => {
+        return <img src={record.show.image.medium} />;
+    },
+}, {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+        <span>
+            <Link to={'/detail/' + record.show.id}>详情</Link>
+            <Divider type="vertical"/>
+            <Link to={'/update/' + record.show.id}>编辑</Link>
+            <Divider type="vertical"/>
+            <a href="#">删除</a>
+        </span>
+    ),
+}];
+
+
 class List extends React.Component {
-    render(){
+
+    componentDidMount(){
+        this.props.dispatch(actions.fetchDataRequest());
+        fetch('http://api.tvmaze.com/search/shows?q=batman')
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                this.props.dispatch(actions.fetchDataSuccess(responseJson));
+            })
+            .catch(e => this.props.dispatch(actions.fetchDataFailed()));
+    }
+
+    render() {console.log(this.props)
         return (
             <div>
-                <Link to='/create'><Button icon="plus" type="primary" >
-                    新建
-                </Button></Link>
+                <p>
+                    <Link to='/create'>
+                        <Button icon="plus" type="primary">
+                            新建
+                        </Button>
+                    </Link>
+                </p>
+                <Table dataSource={this.props.data.items || []}
+                       rowKey={(item) => item.show.id}
+                       columns={columns}
+                       loading={this.props.data.isFetching}
+                       pagination={false}
+                />
             </div>
         )
     }
 }
 
-export default List;
+export default withRouter(connect((state) => ({data: state.data}))(List));
