@@ -9,6 +9,12 @@ import createSagaMiddleware from 'redux-saga'
 import reducer from './reducers'
 import rootSaga from './sagas'
 
+import Api from './api';
+const api = Api.create();
+api.getLatestStatus()
+.then(data => console.log(data))
+.catch(e => console.error(e))
+
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
 // mount it on the Store
