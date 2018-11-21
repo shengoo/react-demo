@@ -23,6 +23,7 @@ sagaMiddleware.run(rootSaga)
 const Root = () => (
   <Counter
       value={store.getState()}
+      onFetchUsers={() => action('FETCH_REQUESTED')}
       onIncrement={() => action('INCREMENT')}
       onDecrement={() => action('DECREMENT')}
       onIncrementAsync={() => action('INCREMENT_ASYNC')} />
@@ -30,7 +31,7 @@ const Root = () => (
 
 const action = type => store.dispatch({type})
 
-const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>(
+const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync, onFetchUsers }) =>(
   <div>
     <button onClick={onIncrementAsync}>
       Increment after 1 second
@@ -47,6 +48,10 @@ const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>(
     <div>
       Clicked: {value} times
     </div>
+    <hr />
+    <button onClick={onFetchUsers}>
+      Fetch users
+    </button>
   </div>
 );
 
