@@ -1,6 +1,10 @@
 import { delay } from 'redux-saga'
 import { call, put, takeEvery, all, takeLatest } from 'redux-saga/effects'
 
+import API from './api';
+
+const api = API.create();
+
 
 export function* helloSaga() {
   console.log('Hello Sagas!')
@@ -18,12 +22,13 @@ export function* watchIncrementAsync() {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 
-export function* fetchData(action) {
+export function* fetchData(api, action) {
   console.log('fetchData', action)
    try {
-      const data = yield fetchUser('https://api.github.com/users')
-      console.log(data)
-      yield put({type: "FETCH_SUCCEEDED", data})
+      // const data = yield fetchUser('https://api.github.com/users')
+      const response = yield call(api.getLatestStatus)
+      console.log(response)
+      yield put({type: "FETCH_SUCCEEDED", response})
    } catch (error) {
       yield put({type: "FETCH_FAILED", error})
    }
@@ -66,6 +71,6 @@ export default function* rootSaga() {
   yield all([
     helloSaga(),
     watchIncrementAsync(),
-    takeEvery('FETCH_REQUESTED', fetchData)
+    takeLatest('FETCH_REQUESTED', fetchData, api)
   ])
 }
